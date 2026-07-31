@@ -1,0 +1,34 @@
+#include<Servo.h>
+int ledpin=8;
+int irsensorpin=10;
+int sensorvalue;
+Servo myServo;
+
+void setup()
+{
+  pinMode(ledpin,OUTPUT);
+  pinMode(irsensorpin,INPUT);
+  myServo.attach(9);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  sensorvalue=digitalRead(irsensorpin);
+  myServo.write(0);
+  if(sensorvalue==HIGH)
+  {
+  myServo.write(90);
+  delay(2000);
+  digitalWrite(ledpin, HIGH);
+  Serial.println("objected is detected");
+  myServo.write(0);
+  delay(1000);
+}
+  else
+  {
+    myServo.write(0);
+    digitalWrite(ledpin,LOW);
+    Serial.println("object is not detected");
+  }
+}
